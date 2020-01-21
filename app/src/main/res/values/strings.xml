@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RC Controller</string>
+    <string name="app_name">Remote Controller</string>
     <string name="ip_hint">Enter IP Address Here...</string>
     <string name="start">Start Controlling</string>
 </resources>
