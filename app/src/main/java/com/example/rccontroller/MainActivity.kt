@@ -3,6 +3,7 @@ package com.example.rccontroller
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.RequestQueue
@@ -23,7 +24,43 @@ class MainActivity : AppCompatActivity() {
         val backwardButton: Button = findViewById(R.id.downArrow)
         val rightButton: Button = findViewById(R.id.rightArrow)
         val leftButton: Button = findViewById(R.id.leftArrow)
+        val startButton: Button = findViewById(R.id.startButton)
+        val ipAddress: EditText = findViewById(R.id.ipAddress)
+        val url = "http://" + ipAddress.text.toString() + "/"
+
+        startButton.setOnClickListener { Toast.makeText(this, "Ready to Control!",Toast.LENGTH_SHORT).show() }
+
+        forwardButton.setOnClickListener {
+            val forwardObject = JSONObject()
+            forwardObject.put("State", "F")
+            sendGetRequest(url, forwardObject)
+        }
+
+        backwardButton.setOnClickListener {
+            val backwardObject = JSONObject()
+            backwardObject.put("State", "B")
+            sendGetRequest(url, backwardObject)
+        }
+
+        rightButton.setOnClickListener {
+            val rightObject = JSONObject()
+            rightObject.put("State", "R")
+            sendGetRequest(url, rightObject)
+        }
+
+        leftButton.setOnClickListener {
+            val leftObject = JSONObject()
+            leftObject.put("State", "L")
+            sendGetRequest(url, leftObject)
+        }
     }
 
-    
+    fun sendGetRequest(url: String, requestObject: JSONObject)
+    {
+        val request = JsonObjectRequest(Request.Method.GET, url, requestObject,
+            Response.Listener { response -> Toast.makeText(this, response.toString(), Toast.LENGTH_SHORT).show()},
+            Response.ErrorListener {Toast.makeText(this, "There was an Error!", Toast.LENGTH_SHORT).show()})
+
+        RequestQueue.add(request)
+    }
 }
