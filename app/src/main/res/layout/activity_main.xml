@@ -45,7 +45,7 @@
             android:background="@mipmap/ic_launcher_right_round"
             android:layout_centerVertical="true"
             android:id="@+id/rightArrow"
-            android:layout_marginLeft="220dp"/>
+            android:layout_marginStart="220dp"/>
 
     </RelativeLayout>
 
@@ -58,5 +58,15 @@
         android:minHeight="50dp"
         android:minWidth="250dp"
         android:id="@+id/ipAddress"
-        android:hint="Enter IP Address of Server Here"/>
+        android:hint="@string/ip_hint"
+        android:inputType="textUri"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ipAddress"
+        android:layout_centerHorizontal="true"
+        android:text="@string/start"
+        android:layout_marginTop="30dp"/>
+
 </RelativeLayout>
