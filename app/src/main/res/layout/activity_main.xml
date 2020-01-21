@@ -47,6 +47,14 @@
             android:id="@+id/rightArrow"
             android:layout_marginStart="220dp"/>
 
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:background="@mipmap/ic_launcher_stop_round"
+            android:padding="8dp"
+            android:id="@+id/stopButton"/>
+
     </RelativeLayout>
 
     <EditText

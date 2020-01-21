@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         val rightButton: Button = findViewById(R.id.rightArrow)
         val leftButton: Button = findViewById(R.id.leftArrow)
         val startButton: Button = findViewById(R.id.startButton)
+        val stopButton: Button = findViewById(R.id.stopButton)
         val ipAddress: EditText = findViewById(R.id.ipAddress)
         val url = "http://" + ipAddress.text.toString() + "/"
         val requestQueue = Volley.newRequestQueue(this)
@@ -51,6 +52,12 @@ class MainActivity : AppCompatActivity() {
             val leftObject = JSONObject()
             leftObject.put("State", "L")
             sendGetRequest(url, leftObject, requestQueue)
+        }
+
+        stopButton.setOnClickListener {
+            val stopObject = JSONObject()
+            stopObject.put("State", "S")
+            sendGetRequest(url, stopObject, requestQueue)
         }
     }
 
