@@ -26,7 +26,6 @@ class MainActivity : AppCompatActivity() {
         val leftButton: Button = findViewById(R.id.leftArrow)
         val startButton: Button = findViewById(R.id.startButton)
         val stopButton: Button = findViewById(R.id.stopButton)
-        val ipAddress: EditText = findViewById(R.id.ipAddress)
         val urlConnect = "http://192.168.4.1:8000/"
         val urlControl = "http://192.168.4.1:8000/control"
         val requestQueue = Volley.newRequestQueue(this)

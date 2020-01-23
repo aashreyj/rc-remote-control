@@ -57,25 +57,18 @@
 
     </RelativeLayout>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonLayout"
-        android:layout_marginTop="70dp"
-        android:layout_centerHorizontal="true"
-        android:minHeight="50dp"
-        android:minWidth="250dp"
-        android:id="@+id/ipAddress"
-        android:hint="@string/ip_hint"
-        android:inputType="textUri"/>
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ipAddress"
+        android:layout_below="@+id/buttonLayout"
         android:layout_centerHorizontal="true"
         android:text="@string/start"
-        android:layout_marginTop="30dp"
-        android:id="@+id/startButton"/>
+        android:layout_marginTop="80dp"
+        android:id="@+id/startButton"
+        android:padding="20dp"
+        android:background="#3173A6"
+        android:textColor="#FFFFFF"
+        android:fontFamily="@font/myfont"
+        android:textSize="24sp"/>
 
 </RelativeLayout>
