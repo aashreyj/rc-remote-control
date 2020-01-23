@@ -2,6 +2,7 @@ package com.example.rccontroller
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -9,6 +10,7 @@ import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONObject
 
@@ -25,48 +27,68 @@ class MainActivity : AppCompatActivity() {
         val startButton: Button = findViewById(R.id.startButton)
         val stopButton: Button = findViewById(R.id.stopButton)
         val ipAddress: EditText = findViewById(R.id.ipAddress)
-        val url = "http://" + ipAddress.text.toString() + "/"
+        val urlConnect = "http://192.168.4.1:8000/"
+        val urlControl = "http://192.168.4.1:8000/control"
         val requestQueue = Volley.newRequestQueue(this)
 
-        startButton.setOnClickListener { Toast.makeText(this, "Ready to Control!",Toast.LENGTH_SHORT).show() }
+        startButton.setOnClickListener {
+            sendGetRequest(urlConnect, requestQueue)
+        }
 
         forwardButton.setOnClickListener {
             val forwardObject = JSONObject()
             forwardObject.put("State", "F")
-            sendGetRequest(url, forwardObject, requestQueue)
+            sendPostRequest(urlControl, forwardObject, requestQueue)
         }
 
         backwardButton.setOnClickListener {
             val backwardObject = JSONObject()
             backwardObject.put("State", "B")
-            sendGetRequest(url, backwardObject, requestQueue)
+            sendPostRequest(urlControl, backwardObject, requestQueue)
         }
 
         rightButton.setOnClickListener {
             val rightObject = JSONObject()
             rightObject.put("State", "R")
-            sendGetRequest(url, rightObject, requestQueue)
+            sendPostRequest(urlControl, rightObject, requestQueue)
         }
 
         leftButton.setOnClickListener {
             val leftObject = JSONObject()
             leftObject.put("State", "L")
-            sendGetRequest(url, leftObject, requestQueue)
+            sendPostRequest(urlControl, leftObject, requestQueue)
         }
 
         stopButton.setOnClickListener {
             val stopObject = JSONObject()
             stopObject.put("State", "S")
-            sendGetRequest(url, stopObject, requestQueue)
+            sendPostRequest(urlControl, stopObject, requestQueue)
         }
     }
 
-    fun sendGetRequest(url: String, requestObject: JSONObject, requestQueue: RequestQueue)
+    fun sendGetRequest(url: String, requestQueue: RequestQueue)
     {
-        val request = JsonObjectRequest(Request.Method.GET, url, requestObject,
-            Response.Listener { response -> Toast.makeText(this, response.toString(), Toast.LENGTH_SHORT).show()},
-            Response.ErrorListener {Toast.makeText(this, "There was an Error!", Toast.LENGTH_SHORT).show()})
+        val request = StringRequest(Request.Method.GET, url,
+            Response.Listener { response ->  },
+            Response.ErrorListener {
+                Toast.makeText(this, "There was an Error!", Toast.LENGTH_SHORT).show()
+                Log.e("VOLLEY", it.message)
+            })
 
         requestQueue.add(request)
+        Toast.makeText(this, "Connected!", Toast.LENGTH_SHORT).show()
+    }
+
+    fun sendPostRequest(url: String, requestObject: JSONObject, requestQueue: RequestQueue)
+    {
+        val request = JsonObjectRequest(Request.Method.POST, url, requestObject,
+            Response.Listener { response ->  },
+            Response.ErrorListener {
+                Log.e("VOLLEY", it.message)
+            })
+
+        requestQueue.add(request)
+
+        Toast.makeText(this, "Command Sent!", Toast.LENGTH_SHORT).show()
     }
 }
